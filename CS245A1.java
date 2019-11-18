@@ -26,7 +26,7 @@ public class CS245A1 {
         }
 
         // Array of Words From 'input.txt' for Checking Spelling
-        String[] input = readInput(args[0]);
+        String[] input = readInput(/* args[0] */);
 
         // Establish 'output.txt' Write Capabilites
         try {
@@ -62,10 +62,10 @@ public class CS245A1 {
     }
 
     // Reads 'input.txt' Returns Array of Input Words
-    private static String[] readInput(String injection) {
+    private static String[] readInput(/* String injection */) {
         try {
-            BufferedReader input = new BufferedReader(new FileReader(injection));
-            // BufferedReader input = new BufferedReader(new FileReader("input.txt"));
+            // BufferedReader input = new BufferedReader(new FileReader(injection));
+            BufferedReader input = new BufferedReader(new FileReader("input.txt"));
 
             // Log 1000 Characters Ahead as a Buffer to Reset to
             // This is a Limiting Factor
@@ -176,15 +176,18 @@ public class CS245A1 {
             int max = 0;
             String pre = target;
             String post = target;
+            // Search Parents and Children of these Characters for Matches
             while (max < 3 && pre != null || post != null) {
                 pre = tree.predecessor(pre);
                 if (pre != null) {
                     suggested.add(pre);
+                    // Limit to Three Suggestions
                     max++;
                 }
                 post = tree.successor(post);
                 if (post != null) {
                     suggested.add(post);
+                    // Limit to Three Suggestions
                     max++;
                 }
             }
@@ -192,11 +195,14 @@ public class CS245A1 {
             return toStringArray(suggested);
         } else {
             int max = 0;
-            here: for (int i = target.length(); i > 0; i++) {
-                for (String w : trie.keysWithPrefix(target.substring(0, i - 1))) {
+            // Loop Through the Characters of the Word
+            here: for (int i = target.length(); i > 0; i--) {
+                // Compare Keys With Possible Similar Prefixes
+                for (String w : trie.keysWithPrefix(target.substring(0, i))) {
                     if (!w.equals(target)) {
                         suggested.add(w);
                         max++;
+                        // Limit to Three Suggestions
                         if (max >= 3) {
                             // I Know This is Bad
                             break here;
