@@ -26,7 +26,7 @@ public class CS245A1 {
         }
 
         // Array of Words From 'input.txt' for Checking Spelling
-        String[] input = readInput(/* args[0] */);
+        String[] input = readInput(args[0]);
 
         // Establish 'output.txt' Write Capabilites
         try {
@@ -62,10 +62,10 @@ public class CS245A1 {
     }
 
     // Reads 'input.txt' Returns Array of Input Words
-    private static String[] readInput(/* String injection */) {
+    private static String[] readInput(String injection) {
         try {
-            // BufferedReader input = new BufferedReader(new FileReader(injection));
-            BufferedReader input = new BufferedReader(new FileReader("input.txt"));
+            BufferedReader input = new BufferedReader(new FileReader(injection));
+            //BufferedReader input = new BufferedReader(new FileReader("input.txt"));
 
             // Log 1000 Characters Ahead as a Buffer to Reset to
             // This is a Limiting Factor
